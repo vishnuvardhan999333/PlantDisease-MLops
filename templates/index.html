@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Plant Disease Classification</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <h1>Plant Disease Classification</h1>
+        <p>Choose the symptoms observed on your plant.</p>
+        <p>0 = Absent | 1 = Present</p>
+
+        <form action="/prediction" method="POST">
+            <label for="leaf_spots">Leaf spots</label>
+            <select id="leaf_spots" name="leaf_spots">
+                <option value="0">Absent</option>
+                <option value="1">Present</option>
+            </select>
+
+            <label for="yellowing">Leaf yellowing</label>
+            <select id="yellowing" name="yellowing">
+                <option value="0">Absent</option>
+                <option value="1">Present</option>
+            </select>
+
+            <label for="leaf_curl">Leaf curling</label>
+            <select id="leaf_curl" name="leaf_curl">
+                <option value="0">Absent</option>
+                <option value="1">Present</option>
+            </select>
+
+            <label for="wilting">Leaf wilting</label>
+            <select id="wilting" name="wilting">
+                <option value="0">Absent</option>
+                <option value="1">Present</option>
+            </select>
+
+            <button type="submit">Predict Disease</button>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2>Prediction: {{ result }}</h2>
+                <p>Educational demonstration, not a verified diagnosis.</p>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+plant-disease-ml.tar
+plant-disease-ml.tar.gz
+*.pem
+.env
+test-results.xml
