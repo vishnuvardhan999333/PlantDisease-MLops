@@ -90,7 +90,7 @@ python train_model.py
 python app.py
 ```
 
-Open `http://127.0.0.1:5001` in your browser.
+Open `http://127.0.0.1:5000/` in your browser.
 
 ## 7. Run Tests
 
@@ -125,7 +125,7 @@ docker ps
 Check application health:
 
 ```bash
-curl http://localhost:5002/health
+curl http://10.44.47.152:5000/health
 ```
 
 ## 9. AWS EC2 Deployment
