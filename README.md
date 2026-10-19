@@ -179,3 +179,7 @@ GitHub: https://github.com/vishnuvardhan999333/PlantDisease-MLops
 ## 14. Author
 
 Developed as an academic MLOps project demonstrating machine learning deployment using Flask, Docker, GitHub, and AWS EC2.
+
+## 15. Deployed Website Screenshot
+
+![Plant Disease Classification website](website-screenshot.png)
