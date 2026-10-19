@@ -1,4 +1,6 @@
 
+from pathlib import Path
+
 import pandas as pd
 import joblib
 
@@ -58,6 +60,7 @@ print("Accuracy:", accuracy_score(y_test, predictions))
 print("\nClassification Report:\n")
 print(classification_report(y_test, predictions, zero_division=0))
 
-joblib.dump(model, "model.pkl")
+model_path = Path(__file__).resolve().parent / "model.pkl"
+joblib.dump(model, model_path)
 print("\nModel saved successfully as model.pkl")
 print("Input features:", features)

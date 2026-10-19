@@ -1,12 +1,14 @@
 
+from pathlib import Path
+
 from flask import Flask, render_template, request, jsonify
 import joblib
 import pandas as pd
 
 app = Flask(__name__)
 
-# Load the trained Decision Tree model
-model = joblib.load("model.pkl")
+BASE_DIR = Path(__file__).resolve().parent
+model = joblib.load(BASE_DIR / "model.pkl")
 
 FEATURES = [
     "leaf_spots",
@@ -39,15 +41,21 @@ def prediction():
         })
 
     try:
-        values = request.get_json() if request.is_json else request.form
+        values = request.get_json(silent=True) if request.is_json else request.form
+        if not isinstance(values, dict) and not request.is_json:
+            values = request.form
+        if not hasattr(values, "get"):
+            raise ValueError("Expected symptom values.")
 
-        row = {
-            feature: int(values[feature])
-            for feature in FEATURES
-        }
-
-        if any(value not in (0, 1) for value in row.values()):
-            raise ValueError("Symptoms must be 0 or 1.")
+        row = {}
+        for feature in FEATURES:
+            value = values.get(feature)
+            # HTML forms submit strings; JSON clients should send integer 0 or 1.
+            is_binary_integer = type(value) is int and value in (0, 1)
+            is_binary_form_value = isinstance(value, str) and value in ("0", "1")
+            if not (is_binary_integer or is_binary_form_value):
+                raise ValueError("Symptoms must be 0 or 1.")
+            row[feature] = int(value)
 
         input_data = pd.DataFrame([row], columns=FEATURES)
         result = model.predict(input_data)[0]
@@ -74,4 +82,4 @@ def prediction():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=False)
+    app.run(host="0.0.0.0", port=5000, debug=False)

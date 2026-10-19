@@ -1,0 +1,14 @@
+.git/
+.vscode/
+.pytest_cache/
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.env
+*.pem
+.ipynb_checkpoints/
+plant-disease-ml.tar
+plant-disease-ml.tar.gz
+test-results.xml
+test_app.py
